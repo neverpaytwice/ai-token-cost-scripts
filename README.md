@@ -9,6 +9,7 @@ Each one reads local files or a response's `usage` block, prints numbers, and se
 | [`claude_cache_savings.py`](claude_cache_savings.py) | Did prompt caching save money, or cost extra? Compares what you paid with the same tokens billed with no caching. | [Claude prompt caching break-even math](https://neverpaytwice.pages.dev/claude-prompt-caching-cost) |
 | [`claude_code_monthly_cost.py`](claude_code_monthly_cost.py) | Is a Claude plan (Pro, Max, Ultra) or the API cheaper for your Claude Code use? Prices each month of your logs at API rates and compares it with each plan. | [Claude Code: subscription or API?](https://neverpaytwice.pages.dev/claude-code-subscription-vs-api) |
 | [`claude_api_bill_check.py`](claude_api_bill_check.py) | Why is your Claude API bill so high? Splits the cost of saved API responses into new input, cache writes, cache reads, output and thinking, and lists requests that skipped the cache. | [Why is my Claude API bill so high?](https://neverpaytwice.pages.dev/claude-api-bill-too-high) |
+| [`claude_batch_savings.py`](claude_batch_savings.py) | How much would the Message Batches API save you (50% off), per model or per job? Also reads batch result files to show what a batch cost. | [Claude Batch API: half price, if you can wait](https://neverpaytwice.pages.dev/claude-batch-api-cost) |
 | [`anthropic_request_cost.py`](anthropic_request_cost.py) | What did one Claude API request cost, from its `usage` block (input, 5-minute and 1-hour cache writes, cache reads, output)? | [What each Claude API request costs](https://neverpaytwice.pages.dev/anthropic-api-cost-per-request) |
 | [`openai_request_cost.py`](openai_request_cost.py) | What did one OpenAI request cost (Chat Completions or Responses API, cached input split out)? Fill in your prices. | [What each OpenAI API request costs](https://neverpaytwice.pages.dev/openai-api-cost-per-request) |
 | [`find_repeat_requests.py`](find_repeat_requests.py) | Which requests did you pay for more than once (retries, double-clicks, re-run pipelines)? | [How to spot duplicate AI API charges](https://neverpaytwice.pages.dev/duplicate-ai-api-charges) |
@@ -20,6 +21,7 @@ python3 count_claude_code_tokens.py              # reads ~/.claude/projects
 python3 claude_cache_savings.py ~/.claude/projects
 python3 claude_code_monthly_cost.py             # API-rate cost per month vs plan prices
 python3 claude_api_bill_check.py responses.jsonl  # where your API bill went (saved responses, one JSON per line)
+python3 claude_batch_savings.py responses.jsonl --by job  # what the Batch API would save
 ```
 
 Works on macOS, Linux and Windows. No packages to install.
