@@ -52,6 +52,7 @@ dollar figures show what the same usage would cost at API rates.
 - **[Free in-browser Claude Code counter](https://neverpaytwice.pages.dev/count)**: drop in your logs; files are read in the browser and never uploaded.
 - **[NeverPayTwice](https://neverpaytwice.pages.dev/)**: a small app ($9 one-time) that does all of the above continuously across AI tools,
   flags repeat charges, and keeps a receipt for each AI purchase. Runs on your own computer.
+  [Try the demo](https://neverpaytwice.pages.dev/app/?demo) with sample data, no sign-up.
 
 ## License
 
