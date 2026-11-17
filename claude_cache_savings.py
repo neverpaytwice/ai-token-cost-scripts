@@ -91,10 +91,28 @@ def records(paths):
     return list(seen.values())
 
 
+def inconsistent(usage):
+    """True when the cache-write breakdown can't be right: 1-hour writes above total writes, or a
+    5-minute + 1-hour split that doesn't add up to the total. Such lines are listed, not priced."""
+    writes = usage.get("cache_creation_input_tokens") or 0
+    cc = usage.get("cache_creation")
+    if not isinstance(cc, dict):
+        return False
+    w1h = cc.get("ephemeral_1h_input_tokens") or 0
+    if w1h > writes:
+        return True
+    if "ephemeral_5m_input_tokens" in cc and "ephemeral_1h_input_tokens" in cc:
+        return (cc.get("ephemeral_5m_input_tokens") or 0) + w1h != writes
+    return False
+
+
 def summary(recs, prices=PRICES):
-    s = {"requests": 0, "unpriced": {}, "paid": 0.0, "no_cache": 0.0,
+    s = {"requests": 0, "unpriced": {}, "inconsistent": 0, "paid": 0.0, "no_cache": 0.0,
          "written": 0, "read": 0, "uncached_input": 0}
     for model, u in recs:
+        if inconsistent(u):
+            s["inconsistent"] += 1
+            continue
         c = costs(model, u, prices)
         if c is None:
             s["unpriced"][model] = s["unpriced"].get(model, 0) + 1
@@ -114,7 +132,8 @@ if __name__ == "__main__":
         sys.exit(__doc__)
     s = summary(records(sys.argv[1:]))
     if not s["requests"]:
-        sys.exit("No priced requests found. Unpriced models: %s" % (s["unpriced"] or "none"))
+        sys.exit("No priced requests found. Unpriced models: %s. Inconsistent cache-write lines: %d"
+                 % (s["unpriced"] or "none", s["inconsistent"]))
     total_in = s["written"] + s["read"] + s["uncached_input"]
     print("Requests:              %d" % s["requests"])
     print("Input tokens:          %d  (%.0f%% read from cache, %.0f%% written to cache)"
@@ -126,3 +145,5 @@ if __name__ == "__main__":
     print("Caching %s:  $%.4f (%.1f%%)" % (word, abs(s["saved"]), 100 * abs(s["saved"]) / max(s["no_cache"], 1e-12)))
     if s["unpriced"]:
         print("Skipped (no price):    %s" % s["unpriced"])
+    if s["inconsistent"]:
+        print("Skipped (cache-write breakdown doesn't add up): %d request(s); check those log lines" % s["inconsistent"])
