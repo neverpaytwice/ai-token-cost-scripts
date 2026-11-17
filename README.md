@@ -50,7 +50,7 @@ dollar figures show what the same usage would cost at API rates.
 ## Prefer not to run scripts?
 
 - **[Free in-browser Claude Code counter](https://neverpaytwice.com/count)**: drop in your logs; files are read in the browser and never uploaded.
-- **[NeverPayTwice](https://neverpaytwice.com/)**: a small app ($9 now (limited-time price), then $2.99 a month to keep after November 22, 2026) that does all of the above continuously across AI tools,
+- **[NeverPayTwice](https://neverpaytwice.com/)**: a small app ($9.99 to start and $2.99 a month to keep, first month included) that does all of the above continuously across AI tools,
   flags repeat charges, and keeps a receipt for each AI purchase. Runs on your own computer.
   [Try the demo](https://neverpaytwice.com/app/?demo) with sample data, no sign-up.
 
