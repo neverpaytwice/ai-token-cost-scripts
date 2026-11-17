@@ -4,7 +4,7 @@ Works with Chat Completions usage (prompt_tokens / completion_tokens) and Respon
 (input_tokens / output_tokens). Cached input is split out because it is billed at a lower rate.
 Reasoning tokens are already included in the output count, so they are not added again.
 Fill in PRICES from OpenAI's pricing page for the models you use (US dollars per 1 million tokens).
-From https://neverpaytwice.pages.dev/openai-api-cost-per-request
+From https://neverpaytwice.com/openai-api-cost-per-request
 """
 
 PRICES = {

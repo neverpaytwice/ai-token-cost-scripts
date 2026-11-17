@@ -13,7 +13,7 @@ Prices are USD per 1 million tokens, from Anthropic's pricing and batch processi
 November 15, 2026). Fast-mode responses are priced at the standard rate: batches can't use fast mode, so a
 batched copy would run at normal speed. Haiku 5.5 prompts over 100,000 tokens and unknown models are listed,
 not priced.
-From https://neverpaytwice.pages.dev/claude-batch-api-cost
+From https://neverpaytwice.com/claude-batch-api-cost
 """
 import json
 import sys

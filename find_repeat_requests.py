@@ -3,7 +3,7 @@
 Give it the requests you sent (the JSON body of each call) with the time and the cost you worked out for it.
 It groups identical requests and adds up what the repeats cost. Fields that identify the caller rather than
 the question (metadata, user, stream_options, service_tier) are ignored, and key order doesn't matter.
-From https://neverpaytwice.pages.dev/duplicate-ai-api-charges
+From https://neverpaytwice.com/duplicate-ai-api-charges
 """
 import hashlib
 import json

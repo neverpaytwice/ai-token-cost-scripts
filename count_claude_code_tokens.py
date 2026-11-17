@@ -4,7 +4,7 @@ Claude Code writes the same response to its logs several times, so a plain sum o
 This keeps one record per response (message id + request id) with its final output count.
 Reads ~/.claude/projects on Mac, Linux and Windows. Prints numbers only; sends nothing anywhere.
 Usage:  python3 count_claude_code_tokens.py [path-to-projects-folder]
-From https://neverpaytwice.pages.dev/claude-code-token-count
+From https://neverpaytwice.com/claude-code-token-count
 """
 import json
 import pathlib

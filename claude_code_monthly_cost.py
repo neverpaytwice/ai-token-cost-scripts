@@ -10,7 +10,7 @@ Prices are USD per 1 million tokens, from Anthropic's pricing page (checked Nove
 Standard rates only: Batch API, US-only inference, fast mode and long-prompt prices are not applied.
 Plan prices are from claude.com/pricing (checked November 14, 2026); plans have usage limits that
 Anthropic does not publish in tokens, so a plan that looks cheaper can still run out.
-From https://neverpaytwice.pages.dev/claude-code-subscription-vs-api
+From https://neverpaytwice.com/claude-code-subscription-vs-api
 """
 import json
 import pathlib

@@ -12,7 +12,7 @@ Usage:  python3 claude_api_bill_check.py responses.jsonl
 Prices are USD per 1 million tokens, from Anthropic's pricing page (checked November 15, 2026).
 Batch API, US-only inference and long-prompt prices are not applied. Fast mode is priced only for
 Claude Opus 5.5 ($8 / $40, twice the standard rate); other fast-mode responses are listed, not priced.
-From https://neverpaytwice.pages.dev/claude-api-bill-too-high
+From https://neverpaytwice.com/claude-api-bill-too-high
 """
 import json
 import sys

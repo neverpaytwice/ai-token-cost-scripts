@@ -11,7 +11,7 @@ Usage:  python3 claude_cache_savings.py FILE_OR_FOLDER [...]
 
 Prices are USD per 1 million tokens, from Anthropic's pricing page (checked November 14, 2026).
 Standard rates only: Batch API, US-only inference, fast mode and long-prompt prices are not applied.
-From https://neverpaytwice.pages.dev/claude-prompt-caching-cost
+From https://neverpaytwice.com/claude-prompt-caching-cost
 """
 import json
 import pathlib

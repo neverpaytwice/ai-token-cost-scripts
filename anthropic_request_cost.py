@@ -3,7 +3,7 @@
 Prices are USD per 1 million tokens, from Anthropic's pricing page (checked November 14, 2026).
 Cache writes are priced from the input price: 1.25x for the 5-minute cache, 2x for the 1-hour cache.
 Cache reads have their own price per model. Check the pricing page and update PRICES when it changes.
-From https://neverpaytwice.pages.dev/anthropic-api-cost-per-request
+From https://neverpaytwice.com/anthropic-api-cost-per-request
 """
 
 PRICES = {
