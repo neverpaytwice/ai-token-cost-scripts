@@ -85,9 +85,20 @@ def monthly(recs, prices=PRICES):
     return months, unpriced
 
 
+def unpriced_months(recs, prices=PRICES):
+    """{month: responses in that month left out because their model has no price}. Those months read low."""
+    out = {}
+    for month, model, u in recs:
+        if cost(model, u, prices) is None:
+            out[month] = out.get(month, 0) + 1
+    return out
+
+
 if __name__ == "__main__":
     root = sys.argv[1] if len(sys.argv) > 1 else pathlib.Path.home() / ".claude" / "projects"
-    months, unpriced = monthly(responses(root))
+    recs = responses(root)
+    months, unpriced = monthly(recs)
+    gaps = unpriced_months(recs)
     if not months:
         sys.exit("No priced Claude Code responses found in %s" % root)
     print("%-9s %13s" % ("Month", "At API rates") + "".join("%22s" % ("%s $%d/mo" % p) for p in PLANS))
@@ -95,7 +106,10 @@ if __name__ == "__main__":
         usd = months[month]
         cols = "".join("%22s" % ("plan cheaper by $%.0f" % (usd - price) if usd > price else "API cheaper by $%.0f" % (price - usd))
                        for _, price in PLANS)
-        print("%-9s %13s" % (month, "$%.2f" % usd) + cols)
+        print("%-9s %13s" % (month, "$%.2f" % usd + ("*" if month in gaps else "")) + cols)
     if unpriced:
         print("Skipped (no price): %s" % unpriced)
+        print("* Incomplete month: %s. Some responses there use a model with no price in PRICES, so the total reads low."
+              % ", ".join("%s (%d left out)" % (m, n) for m, n in sorted(gaps.items())))
+        print("  Add the model's price to PRICES and run again.")
     print("A month that is still running is only partly counted.")
