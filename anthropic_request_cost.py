@@ -2,7 +2,9 @@
 
 Prices are USD per 1 million tokens, from Anthropic's pricing page (checked November 14, 2026).
 Cache writes are priced from the input price: 1.25x for the 5-minute cache, 2x for the 1-hour cache.
-Cache reads have their own price per model. Check the pricing page and update PRICES when it changes.
+Cache reads have their own price per model. Claude Haiku 5.5 has a higher price for a request whose
+prompt (new input + cache writes + cache reads) is over 100,000 tokens; that is applied below.
+Check the pricing page and update PRICES when it changes.
 From https://neverpaytwice.com/anthropic-api-cost-per-request
 """
 
@@ -16,6 +18,11 @@ PRICES = {
     "claude-sonnet-4-6": {"input": 3.00, "cache_read": 0.30, "output": 15.00},
     "claude-haiku-4-5":  {"input": 1.00, "cache_read": 0.10, "output": 5.00},
 }
+# Requests whose whole prompt is over 100,000 tokens are priced here instead.
+LONG_PROMPT_PRICES = {
+    "claude-haiku-5-5":  {"input": 0.50, "cache_read": 0.05, "output": 2.50},   # prompts over 100,000 tokens
+}
+LONG_PROMPT_TOKENS = 100_000
 WRITE_5M, WRITE_1H = 1.25, 2.0
 
 
@@ -35,12 +42,14 @@ def split_usage(usage):
             usage.get("output_tokens") or 0)
 
 
-def request_cost(model, usage, prices=PRICES):
+def request_cost(model, usage, prices=PRICES, long_prices=LONG_PROMPT_PRICES):
     """Dollar cost of one request, or None if the model has no price in `prices`."""
     p = prices.get(model)
     if p is None:
         return None
     new_in, w5, w1h, read, out = split_usage(usage)
+    if new_in + w5 + w1h + read > LONG_PROMPT_TOKENS and model in long_prices:
+        p = long_prices[model]
     return (new_in * p["input"]
             + w5 * p["input"] * WRITE_5M
             + w1h * p["input"] * WRITE_1H
